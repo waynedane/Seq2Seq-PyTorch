@@ -22,10 +22,10 @@ class BeamSearchDecoder(object):
     ):
         """Initialize model."""
         self.config = config
-        self.model_weights = model_weights
-        self.beam_size = beam_size
+        self.model_weights = model_weights #模型的参数
+        self.beam_size = beam_size #集束搜索的集束大小
 
-        self.src = src
+        self.src = src 
         self.trg = trg
         self.src_dict = src['word2id']
         self.tgt_dict = trg['word2id']
@@ -79,9 +79,9 @@ class BeamSearchDecoder(object):
 
     def get_hidden_representation(self, input):
         """Get hidden representation for a sentence."""
-        src_emb = self.model.src_embedding(input)
-        h0_encoder, c0_encoder = self.model.get_state(src_emb)
-        src_h, (src_h_t, src_c_t) = self.model.encoder(
+        src_emb = self.model.src_embedding(input)   #获取词嵌入向量
+        h0_encoder, c0_encoder = self.model.get_state(src_emb) #获取编码器的隐层状态
+        src_h, (src_h_t, src_c_t) = self.model.encoder( #得到文本的表示向量以及当前时间步的隐层状态
             src_emb, (h0_encoder, c0_encoder)
         )
 
